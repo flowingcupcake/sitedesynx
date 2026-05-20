@@ -10,28 +10,20 @@
 <meta property="og:title" content="DESYNX — FFlag Engine">
 <meta property="og:description" content="Deep FastFlag optimization and engine-level automation for Roblox.">
 <meta name="theme-color" content="#63b3ed">
-
-<!-- ─── Cache control: browsers cache this page for 1 hour, cutting repeat hits ─── -->
 <meta http-equiv="Cache-Control" content="public, max-age=3600">
 <meta http-equiv="Expires" content="3600">
-
-<!-- ─── Bot / scraper detection: runs before page renders ─── -->
 <script>
 (function(){
-  /* 1. Headless browser detection */
   var headless = false;
   if (navigator.webdriver) headless = true;
   if (!window.chrome && /HeadlessChrome/.test(navigator.userAgent)) headless = true;
   if (navigator.plugins.length === 0 && navigator.languages.length === 0) headless = true;
   if (headless) { document.documentElement.innerHTML = ''; location.href = 'about:blank'; return; }
-
-  /* 2. Client-side rate limiter — same browser can only load once every 8 seconds */
   try {
     var now = Date.now();
     var last = parseInt(localStorage.getItem('_dsx_last') || '0', 10);
     var count = parseInt(sessionStorage.getItem('_dsx_hits') || '0', 10);
     if (now - last < 8000 && count > 3) {
-      /* Show a soft "slow down" overlay instead of blank page */
       document.documentElement.style.cssText = 'background:#05070f;color:#63b3ed;display:flex;align-items:center;justify-content:center;height:100vh;font-family:monospace;font-size:14px;';
       document.addEventListener('DOMContentLoaded', function(){
         document.body.innerHTML = '<div style="text-align:center;padding:40px"><div style="font-size:28px;margin-bottom:16px">⚡</div><div style="letter-spacing:4px;text-transform:uppercase;margin-bottom:10px">DESYNX</div><div style="color:#6b7d99;margin-bottom:24px">Too many requests. Please wait a moment.</div><div style="color:#3d4a60;font-size:11px">Auto-refreshing...</div></div>';
@@ -44,12 +36,9 @@
   } catch(e) {}
 })();
 </script>
-
-<!-- ─── Fonts: load non-blocking so they don't delay render ─── -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
-
 <style>
 :root {
   --bg: #05070f;
@@ -72,10 +61,8 @@
   --mono: 'JetBrains Mono', monospace;
   --display: 'Syne', sans-serif;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
 body {
   background: var(--bg);
   color: var(--white);
@@ -86,8 +73,6 @@ body {
   align-items: center;
   overflow-x: hidden;
 }
-
-/* ─── Noise overlay ─── */
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -95,19 +80,15 @@ body::before {
   opacity: 0.018;
   pointer-events: none; z-index: 0;
 }
-
-/* ─── Background ─── */
 .bg-glow {
-  position: fixed;
-  top: -320px; left: 50%;
+  position: fixed; top: -320px; left: 50%;
   transform: translateX(-50%);
   width: 1200px; height: 800px;
   background: radial-gradient(ellipse at 50% 20%, rgba(99,179,237,0.095) 0%, transparent 65%);
   pointer-events: none; z-index: 0;
 }
 .bg-glow2 {
-  position: fixed;
-  bottom: -200px; right: -200px;
+  position: fixed; bottom: -200px; right: -200px;
   width: 600px; height: 600px;
   background: radial-gradient(ellipse at 70% 70%, rgba(66,153,225,0.055), transparent 65%);
   pointer-events: none; z-index: 0;
@@ -121,12 +102,9 @@ body::before {
   pointer-events: none; z-index: 0;
   mask-image: radial-gradient(ellipse at 50% 0%, black 5%, transparent 55%);
 }
-.bg-particles {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-}
+.bg-particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .particle {
-  position: absolute;
-  border-radius: 50%;
+  position: absolute; border-radius: 50%;
   background: rgba(99,179,237,0.5);
   animation: float linear infinite;
 }
@@ -136,8 +114,6 @@ body::before {
   90%  { opacity: 1; }
   to   { transform: translateY(-100px) translateX(60px) scale(0.5); opacity: 0; }
 }
-
-/* ─── Nav ─── */
 nav {
   width: 100%; max-width: 1100px;
   display: flex; align-items: center; justify-content: space-between;
@@ -160,13 +136,9 @@ nav {
 .nav-link {
   font-size: 13px; color: var(--muted2); text-decoration: none;
   padding: 7px 15px; border-radius: 8px;
-  transition: color 0.2s, background 0.2s;
-  font-weight: 500;
+  transition: color 0.2s, background 0.2s; font-weight: 500;
 }
 .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.05); }
-.nav-pill {
-  height: 1px; width: 24px; background: var(--muted); margin: 0 4px; opacity: 0.4;
-}
 .nav-discord {
   display: flex; align-items: center; gap: 7px;
   font-size: 13px; color: var(--muted2);
@@ -174,12 +146,9 @@ nav {
   border: 1px solid var(--border);
   padding: 7px 18px; border-radius: 999px;
   text-decoration: none;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
-  font-weight: 500;
+  transition: color 0.2s, border-color 0.2s, background 0.2s; font-weight: 500;
 }
 .nav-discord:hover { color: var(--white); border-color: rgba(99,179,237,0.3); background: rgba(99,179,237,0.06); }
-
-/* ─── Hero ─── */
 .hero {
   padding: 68px 36px 52px;
   display: flex; flex-direction: column; align-items: center;
@@ -209,7 +178,6 @@ nav {
   0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(99,179,237,0.5); }
   50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(99,179,237,0); }
 }
-
 .hero-title {
   font-family: var(--display); font-weight: 800;
   font-size: clamp(58px, 7vw, 100px);
@@ -219,26 +187,21 @@ nav {
 }
 .hero-title .blue { color: var(--accent); }
 .hero-title .white { color: var(--white); }
-
 .hero-eyebrow {
   font-family: var(--mono); font-size: 10px; letter-spacing: 4px;
   text-transform: uppercase; color: var(--muted);
   margin-bottom: 10px; display: block;
   opacity: 0; animation: fadeIn 0.6s ease forwards 0.05s;
 }
-
 .hero-sub {
   font-size: 15px; color: var(--muted2); line-height: 1.78;
   max-width: 420px; opacity: 0; animation: fadeUp 0.7s ease forwards 0.3s;
   margin-bottom: 36px; font-weight: 400;
 }
-
 .hero-cta {
   display: flex; gap: 10px; flex-wrap: wrap;
   opacity: 0; animation: fadeUp 0.7s ease forwards 0.4s;
 }
-
-/* ─── Buttons ─── */
 .btn-primary {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
   color: #05070f; padding: 13px 26px; border-radius: 10px;
@@ -257,28 +220,6 @@ nav {
   box-shadow: 0 14px 32px -6px rgba(99,179,237,0.5);
   filter: brightness(1.08);
 }
-
-.btn-v2 {
-  background: linear-gradient(135deg, rgba(183,148,244,0.15) 0%, rgba(99,179,237,0.08) 100%);
-  color: var(--purple); padding: 13px 26px; border-radius: 10px;
-  font-weight: 600; font-size: 13.5px; text-decoration: none;
-  border: 1px solid rgba(183,148,244,0.3);
-  display: flex; align-items: center; gap: 8px;
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s;
-  position: relative; overflow: hidden;
-}
-.btn-v2::before {
-  content: 'TEST'; position: absolute; top: 5px; right: 8px;
-  font-family: var(--mono); font-size: 7px; letter-spacing: 2px;
-  color: var(--purple); opacity: 0.6;
-}
-.btn-v2:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px -6px rgba(183,148,244,0.3);
-  border-color: rgba(183,148,244,0.55);
-  background: linear-gradient(135deg, rgba(183,148,244,0.2) 0%, rgba(99,179,237,0.1) 100%);
-}
-
 .btn-secondary {
   background: rgba(255,255,255,0.04);
   color: var(--white); padding: 13px 26px; border-radius: 10px;
@@ -288,11 +229,27 @@ nav {
   transition: background 0.2s, border-color 0.2s;
 }
 .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: var(--muted); }
-
+/* Single large download button for the banner */
+.btn-download {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  color: #05070f; padding: 15px 34px; border-radius: 12px;
+  font-weight: 700; font-size: 14px; text-decoration: none;
+  display: flex; align-items: center; gap: 10px;
+  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+  letter-spacing: 0.3px; position: relative; overflow: hidden; white-space: nowrap;
+}
+.btn-download::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.btn-download:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -8px rgba(99,179,237,0.55);
+  filter: brightness(1.1);
+}
 @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-
-/* ─── Terminal Widget ─── */
 .terminal-wrap {
   opacity: 0; animation: fadeUp 0.7s ease forwards 0.5s;
   position: relative;
@@ -319,8 +276,7 @@ nav {
 }
 .terminal-bar {
   background: var(--surface2); border-bottom: 1px solid var(--border);
-  padding: 12px 18px;
-  display: flex; align-items: center; gap: 8px;
+  padding: 12px 18px; display: flex; align-items: center; gap: 8px;
 }
 .t-dot { width: 10px; height: 10px; border-radius: 50%; }
 .t-dot.red   { background: #ff5f56; box-shadow: 0 0 4px rgba(255,95,86,0.4); }
@@ -349,8 +305,6 @@ nav {
   box-shadow: 0 0 8px var(--accent);
 }
 @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-
-/* ─── Stats Bar ─── */
 .stats-bar {
   width: 100%; max-width: 1100px;
   display: grid; grid-template-columns: repeat(4, 1fr);
@@ -363,8 +317,7 @@ nav {
   box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 .stat {
-  background: var(--surface);
-  padding: 22px 30px;
+  background: var(--surface); padding: 22px 30px;
   display: flex; flex-direction: column; gap: 5px;
   transition: background 0.2s; position: relative;
 }
@@ -377,45 +330,29 @@ nav {
 .stat:hover::after { opacity: 1; }
 .stat-num {
   font-family: var(--display); font-size: 30px; font-weight: 700;
-  color: var(--white); letter-spacing: -1.5px;
-  line-height: 1;
+  color: var(--white); letter-spacing: -1.5px; line-height: 1;
 }
 .stat-num span { color: var(--accent); }
 .stat-label { font-size: 11.5px; color: var(--muted2); font-weight: 400; margin-top: 2px; letter-spacing: 0.2px; }
-
-/* ─── Cards ─── */
-.wrapper {
-  position: relative; z-index: 1;
-  width: 100%; max-width: 1100px;
-  padding: 0 36px;
-}
+.wrapper { position: relative; z-index: 1; width: 100%; max-width: 1100px; padding: 0 36px; }
 .section-label {
   font-family: var(--mono); font-size: 10px; letter-spacing: 4px;
   text-transform: uppercase; color: var(--accent);
   margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
 }
-.section-label::before {
-  content: ''; display: block; width: 20px; height: 1px; background: var(--accent); opacity: 0.5;
-}
+.section-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); opacity: 0.5; }
 .section-title {
   font-family: var(--display); font-size: 34px; font-weight: 800;
   letter-spacing: -1.2px; margin-bottom: 8px; color: var(--white);
 }
 .section-sub { font-size: 14px; color: var(--muted2); margin-bottom: 36px; line-height: 1.65; }
-
 .cards-section { padding: 16px 0 72px; }
-.cards-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-}
-
+.cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px; padding: 28px 26px;
-  cursor: pointer;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px 26px; cursor: pointer;
   transition: border-color 0.25s, background 0.25s, transform 0.22s, box-shadow 0.25s;
-  position: relative; overflow: hidden;
-  text-decoration: none; display: block;
+  position: relative; overflow: hidden; text-decoration: none; display: block;
 }
 .card::before {
   content: ''; position: absolute; inset: 0;
@@ -434,7 +371,6 @@ nav {
 }
 .card:hover::before { opacity: 1; }
 .card:hover::after { opacity: 1; }
-
 .card-icon {
   width: 42px; height: 42px; border-radius: 11px;
   background: var(--surface2); border: 1px solid var(--border);
@@ -452,12 +388,7 @@ nav {
   color: var(--white); margin-bottom: 9px; letter-spacing: 0.3px;
   position: relative; z-index: 1;
 }
-.card-desc {
-  font-size: 12.5px; color: var(--muted2); line-height: 1.68;
-  position: relative; z-index: 1;
-}
-
-/* ─── How it works ─── */
+.card-desc { font-size: 12.5px; color: var(--muted2); line-height: 1.68; position: relative; z-index: 1; }
 .steps-section { padding: 16px 0 80px; }
 .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 .step { position: relative; padding-left: 22px; }
@@ -467,14 +398,9 @@ nav {
   background: linear-gradient(to bottom, var(--accent), transparent);
   border-radius: 2px;
 }
-.step-num {
-  font-family: var(--mono); font-size: 10px; color: var(--accent);
-  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 11px;
-}
+.step-num { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 11px; }
 .step-title { font-family: var(--display); font-size: 18px; font-weight: 700; margin-bottom: 9px; color: var(--white); }
 .step-desc { font-size: 13px; color: var(--muted2); line-height: 1.72; }
-
-/* ─── Version section ─── */
 .version-section {
   padding: 28px 0 20px;
   display: flex; flex-direction: column; align-items: center; gap: 14px;
@@ -496,8 +422,6 @@ nav {
   transition: border-color 0.2s, color 0.2s, background 0.2s; text-decoration: none;
 }
 .support-btn:hover { border-color: rgba(99,179,237,0.3); color: var(--white); background: rgba(99,179,237,0.05); }
-
-/* ─── Download Banner ─── */
 .download-banner {
   width: 100%; max-width: 1100px;
   margin: 0 36px 72px;
@@ -522,56 +446,17 @@ nav {
 }
 .banner-text p { font-size: 14px; color: var(--muted2); line-height: 1.65; max-width: 380px; }
 .banner-actions { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
-
-/* ─── Download versions block ─── */
-.dl-versions {
-  display: flex; flex-direction: column; gap: 10px;
-}
-.dl-version-row {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 14px; padding: 16px 20px;
-  transition: border-color 0.2s, background 0.2s;
-}
-.dl-version-row:hover { border-color: rgba(99,179,237,0.2); background: var(--surface3); }
-.dl-version-row.v2 { border-color: rgba(183,148,244,0.2); }
-.dl-version-row.v2:hover { border-color: rgba(183,148,244,0.35); }
-.dl-ver-info { flex: 1; }
-.dl-ver-name {
-  font-family: var(--mono); font-size: 12px; font-weight: 600;
-  color: var(--white); margin-bottom: 3px;
-}
-.dl-ver-name .badge {
-  display: inline-block; font-size: 9px; letter-spacing: 2px;
-  background: rgba(183,148,244,0.15); color: var(--purple);
-  border: 1px solid rgba(183,148,244,0.3);
-  padding: 2px 7px; border-radius: 4px; margin-left: 8px;
-  vertical-align: middle;
-}
-.dl-ver-desc { font-size: 11px; color: var(--muted2); }
-.dl-btn {
-  background: var(--accent); color: #05070f;
-  padding: 9px 18px; border-radius: 9px;
-  font-weight: 700; font-size: 12px; text-decoration: none;
-  display: flex; align-items: center; gap: 6px;
-  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
-  white-space: nowrap; flex-shrink: 0;
-}
-.dl-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 20px -4px rgba(99,179,237,0.4); filter: brightness(1.08); }
-.dl-btn.v2-btn {
-  background: transparent; color: var(--purple);
-  border: 1px solid rgba(183,148,244,0.35);
-  font-weight: 600;
-}
-.dl-btn.v2-btn:hover { background: rgba(183,148,244,0.1); box-shadow: 0 8px 20px -4px rgba(183,148,244,0.2); }
-
-/* ─── Footer ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(99,179,237,0.2); border-radius: 2px; }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.divider { width: 100%; max-width: 1100px; padding: 0 36px; position: relative; z-index: 1; margin-bottom: 48px; }
+.divider-line { height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent); }
 footer {
-  width: 100%;
-  border-top: 1px solid var(--border);
+  width: 100%; border-top: 1px solid var(--border);
   padding: 32px 36px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: grid; grid-template-columns: 1fr auto 1fr;
   align-items: center;
   position: relative; z-index: 1; margin-top: auto;
 }
@@ -585,18 +470,13 @@ footer {
 .footer-links a:hover { color: var(--white); }
 .footer-credit { font-size: 12px; color: var(--muted); text-align: right; }
 .footer-credit span { color: var(--accent); }
-
-/* ─── Docs ─── */
 .docs-root { width: 100%; border-top: 1px solid var(--border); position: relative; z-index: 1; }
 .docs-inner { max-width: 1100px; margin: 0 auto; padding: 80px 36px 100px; }
-
 .doc-reveal { display: flex; align-items: center; gap: 10px; margin-bottom: 48px; }
 .doc-title { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--white); letter-spacing: 1px; }
-
 .doc-group {
   border: 1px solid var(--border); border-radius: 14px;
-  overflow: hidden; margin-bottom: 10px;
-  transition: border-color 0.2s;
+  overflow: hidden; margin-bottom: 10px; transition: border-color 0.2s;
 }
 .doc-group:hover { border-color: rgba(99,179,237,0.15); }
 .doc-group-header {
@@ -615,29 +495,18 @@ footer {
   max-height: 2000px; transition: max-height 0.4s ease;
 }
 .doc-group:not(.open) .doc-group-body { max-height: 0; }
-.doc-fn {
-  padding: 16px 24px; border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
-}
+.doc-fn { padding: 16px 24px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
 .doc-fn:hover { background: var(--surface2); }
-.doc-sig {
-  font-family: var(--mono); font-size: 12.5px; color: var(--accent);
-  margin-bottom: 5px; letter-spacing: 0.2px;
-}
+.doc-sig { font-family: var(--mono); font-size: 12.5px; color: var(--accent); margin-bottom: 5px; letter-spacing: 0.2px; }
 .doc-desc { font-size: 12px; color: var(--muted2); line-height: 1.65; padding-left: 4px; }
-.doc-category {
-  font-family: var(--mono); font-size: 11px; color: var(--muted);
-  letter-spacing: 1px; padding: 16px 24px 4px;
-}
-
+.doc-category { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; padding: 16px 24px 4px; }
 .code-body { padding: 24px 28px; position: relative; }
 .code-copy {
   position: absolute; top: 16px; right: 16px;
   font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
   color: var(--muted2); background: var(--surface2);
   border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px;
-  cursor: pointer; transition: color 0.2s, border-color 0.2s;
-  text-transform: uppercase;
+  cursor: pointer; transition: color 0.2s, border-color 0.2s; text-transform: uppercase;
 }
 .code-copy:hover { color: var(--accent); border-color: rgba(99,179,237,0.3); }
 .code-copy.copied { color: var(--green); border-color: rgba(104,211,145,0.3); }
@@ -651,123 +520,9 @@ footer {
 .code-block .n  { color: #f6ad55; }
 .code-block .kw { color: var(--accent); }
 .code-block .nb { color: #e2e8f0; }
-
 .doc-power { margin-top: 32px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
 .lua-link { color: var(--muted); text-decoration: none; transition: color 0.2s; }
 .lua-link:hover { color: var(--accent); }
-
-/* ─── Download Popup Modal ─── */
-.dl-modal-overlay {
-  position: fixed; inset: 0; z-index: 1000;
-  background: rgba(5,7,15,0.82);
-  backdrop-filter: blur(6px);
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.25s ease;
-}
-.dl-modal-overlay.active { opacity: 1; pointer-events: all; }
-
-.dl-modal {
-  background: var(--surface);
-  border: 1px solid rgba(99,179,237,0.2);
-  border-radius: 22px;
-  padding: 42px 44px;
-  max-width: 480px; width: 100%;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(99,179,237,0.07);
-  transform: translateY(16px);
-  transition: transform 0.28s ease;
-}
-.dl-modal-overlay.active .dl-modal { transform: translateY(0); }
-
-.dl-modal::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(99,179,237,0.4), transparent);
-  border-radius: 22px 22px 0 0;
-}
-
-.dl-modal-icon {
-  width: 56px; height: 56px; border-radius: 16px;
-  background: linear-gradient(135deg, rgba(99,179,237,0.15), rgba(66,153,225,0.08));
-  border: 1px solid rgba(99,179,237,0.25);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 22px;
-  box-shadow: 0 0 24px rgba(99,179,237,0.12);
-}
-
-.dl-modal-title {
-  font-family: var(--display); font-size: 22px; font-weight: 800;
-  color: var(--white); letter-spacing: -0.5px; margin-bottom: 14px;
-}
-
-.dl-modal-msg {
-  font-size: 14px; color: var(--muted2); line-height: 1.75;
-  margin-bottom: 28px;
-}
-.dl-modal-msg strong { color: var(--accent); font-weight: 600; }
-
-.dl-modal-bar-wrap {
-  background: var(--surface2); border-radius: 999px;
-  height: 5px; overflow: hidden; margin-bottom: 14px;
-  border: 1px solid var(--border);
-}
-.dl-modal-bar {
-  height: 100%; border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent2), var(--accent));
-  width: 100%;
-  transition: width 1s linear;
-  box-shadow: 0 0 8px rgba(99,179,237,0.4);
-}
-
-.dl-modal-countdown {
-  font-family: var(--mono); font-size: 11px; color: var(--muted2);
-  letter-spacing: 1px; margin-bottom: 22px;
-}
-.dl-modal-countdown span { color: var(--accent); font-weight: 600; }
-
-.dl-modal-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-
-.dl-modal-discord {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: #05070f; padding: 11px 24px; border-radius: 10px;
-  font-weight: 700; font-size: 13px; text-decoration: none;
-  border: none; cursor: pointer;
-  transition: filter 0.2s, transform 0.2s;
-}
-.dl-modal-discord:hover { filter: brightness(1.1); transform: translateY(-1px); }
-
-.dl-modal-cancel {
-  display: inline-flex; align-items: center;
-  background: transparent; color: var(--muted2);
-  padding: 11px 20px; border-radius: 10px;
-  font-size: 13px; border: 1px solid var(--border);
-  cursor: pointer; transition: color 0.2s, border-color 0.2s;
-}
-.dl-modal-cancel:hover { color: var(--white); border-color: var(--muted); }
-
-/* ─── Scrollbar ─── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: rgba(99,179,237,0.2); border-radius: 2px; }
-
-/* ─── Reveal ─── */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ─── Divider ─── */
-.divider {
-  width: 100%; max-width: 1100px; padding: 0 36px;
-  position: relative; z-index: 1; margin-bottom: 48px;
-}
-.divider-line {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
-}
-
-/* ─── Responsive ─── */
 @media (max-width: 820px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center; }
   .hero-left { display: flex; flex-direction: column; align-items: center; }
@@ -788,7 +543,7 @@ footer {
 @media (max-width: 480px) {
   .cards-grid { grid-template-columns: 1fr; }
   .hero-cta { flex-direction: column; width: 100%; }
-  .btn-primary, .btn-secondary, .btn-v2 { justify-content: center; }
+  .btn-primary, .btn-secondary, .btn-download { justify-content: center; }
   .stats-bar { grid-template-columns: 1fr 1fr; }
   .download-banner { padding: 28px 20px; }
 }
@@ -832,13 +587,9 @@ footer {
         Deep FastFlag optimization and engine-level automation for Roblox. Access every flag, unlock full performance, and configure what the settings menu hides.
       </p>
       <div class="hero-cta">
-        <a href="#" onclick="openDlModal(event)" class="btn-primary">
+        <a href="https://cdn.discordapp.com/attachments/1486844929555828886/1505977260283269130/DesynxExternal.exe?ex=6a0e905e&is=6a0d3ede&hm=291482762d666c701efa73f0df992476a5fe35924504f149f158ec99e4ddb876&" class="btn-primary">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download v1
-        </a>
-        <a href="#" onclick="openDlModal(event)" class="btn-v2">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          Download Version 2
+          Download Desynx
         </a>
         <a href="https://discord.gg/SgRqWdca7C" target="_blank" class="btn-secondary">
           <svg width="14" height="14" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.71,32.65-1.82,56.6.48,80.05a105.73,105.73,0,0,0,32.44,16.31,75.7,75.7,0,0,0,7.19-11.73,69.07,69.07,0,0,1-11.37-5.43c.95-.7,1.89-1.44,2.78-2.2a74.22,74.22,0,0,0,64.15,0c.9.76,1.83,1.5,2.78,2.2a69.08,69.08,0,0,1-11.37,5.43,75.8,75.8,0,0,0,7.19,11.73,105.47,105.47,0,0,0,32.44-16.31C129.66,50.7,125.13,26.89,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
@@ -894,9 +645,7 @@ footer {
 
       <a class="card" href="#">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
         </div>
         <div class="card-name">FFlag Editor</div>
         <p class="card-desc">Bool, String, and Integer flags with live search and Modified Only tracking.</p>
@@ -904,9 +653,7 @@ footer {
 
       <a class="card" href="#">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
         <div class="card-name">Lua Executor</div>
         <p class="card-desc">Integrated IDE with autocomplete, bracket pairing, and real-time debug console.</p>
@@ -914,11 +661,7 @@ footer {
 
       <a class="card" href="#">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
-            <line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/>
-            <line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
         </div>
         <div class="card-name">Combat Desync</div>
         <p class="card-desc">Engine-level sync management tuned for tactical advantages in competitive games.</p>
@@ -926,9 +669,7 @@ footer {
 
       <a class="card" href="#">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
         <div class="card-name">Performance</div>
         <p class="card-desc">FPS unlocking and granular toggles for Shadows, Blur, and Post-Processing.</p>
@@ -936,9 +677,7 @@ footer {
 
       <a class="card" href="#">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
         <div class="card-name">Live Telemetry</div>
         <p class="card-desc">Sidebar tracking for PID, boot-time, memory footprint, and active flag counts.</p>
@@ -946,9 +685,7 @@ footer {
 
       <a class="card" href="#">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
         </div>
         <div class="card-name">Integrations</div>
         <p class="card-desc">RGB/A theme engine, Spotify overlay, and Discord Rich Presence support.</p>
@@ -1001,27 +738,11 @@ footer {
     <h2>Ready to unlock the engine?</h2>
     <p>Join thousands of Roblox players already using Desynx for faster, deeper, and more competitive gameplay.</p>
   </div>
-  <div class="dl-versions">
-    <div class="dl-version-row">
-      <div class="dl-ver-info">
-        <div class="dl-ver-name">Version 1.0 — Stable</div>
-        <div class="dl-ver-desc">Production-ready · Fully tested</div>
-      </div>
-      <a href="#" onclick="openDlModal(event)" class="dl-btn">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download
-      </a>
-    </div>
-    <div class="dl-version-row v2">
-      <div class="dl-ver-info">
-        <div class="dl-ver-name">Version 2.0 <span class="badge">TEST</span></div>
-        <div class="dl-ver-desc">Latest features · May be unstable</div>
-      </div>
-      <a href="#" onclick="openDlModal(event)" class="dl-btn v2-btn">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        Download
-      </a>
-    </div>
+  <div class="banner-actions">
+    <a href="https://cdn.discordapp.com/attachments/1486844929555828886/1505977260283269130/DesynxExternal.exe?ex=6a0e905e&is=6a0d3ede&hm=291482762d666c701efa73f0df992476a5fe35924504f149f158ec99e4ddb876&" class="btn-download">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Desynx
+    </a>
   </div>
 </div>
 
@@ -1126,28 +847,6 @@ desynx.setdesync(<span class="kw">true</span>)
   </div>
 </div>
 
-<!-- ─── Download Popup Modal ─── -->
-<div class="dl-modal-overlay" id="dlModal">
-  <div class="dl-modal">
-    <div class="dl-modal-icon">
-      <svg width="24" height="24" viewBox="0 0 127.14 96.36" fill="var(--accent)"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.71,32.65-1.82,56.6.48,80.05a105.73,105.73,0,0,0,32.44,16.31,75.7,75.7,0,0,0,7.19-11.73,69.07,69.07,0,0,1-11.37-5.43c.95-.7,1.89-1.44,2.78-2.2a74.22,74.22,0,0,0,64.15,0c.9.76,1.83,1.5,2.78,2.2a69.08,69.08,0,0,1-11.37,5.43,75.8,75.8,0,0,0,7.19,11.73,105.47,105.47,0,0,0,32.44-16.31C129.66,50.7,125.13,26.89,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
-    </div>
-    <div class="dl-modal-title">One Quick Stop First</div>
-    <div class="dl-modal-msg">
-      To avoid unnecessary support tickets, you will be <strong>automatically redirected to our Discord server</strong> — where the developer posts all updates, patches, and release announcements. Stay in the loop and get community support there.
-    </div>
-    <div class="dl-modal-bar-wrap"><div class="dl-modal-bar" id="dlBar" style="width:100%"></div></div>
-    <div class="dl-modal-countdown">Redirecting to Discord in <span id="dlCountdown">10</span>s</div>
-    <div class="dl-modal-actions">
-      <a href="https://discord.gg/SgRqWdca7C" target="_blank" class="dl-modal-discord" id="dlDiscordBtn">
-        <svg width="14" height="14" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.71,32.65-1.82,56.6.48,80.05a105.73,105.73,0,0,0,32.44,16.31,75.7,75.7,0,0,0,7.19-11.73,69.07,69.07,0,0,1-11.37-5.43c.95-.7,1.89-1.44,2.78-2.2a74.22,74.22,0,0,0,64.15,0c.9.76,1.83,1.5,2.78,2.2a69.08,69.08,0,0,1-11.37,5.43,75.8,75.8,0,0,0,7.19,11.73,105.47,105.47,0,0,0,32.44-16.31C129.66,50.7,125.13,26.89,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
-        Join Discord Now
-      </a>
-      <button class="dl-modal-cancel" onclick="closeDlModal()">Cancel</button>
-    </div>
-  </div>
-</div>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">
@@ -1160,8 +859,7 @@ desynx.setdesync(<span class="kw">true</span>)
     <a href="#features">Features</a>
     <a href="#docs">Docs</a>
     <a href="https://discord.gg/SgRqWdca7C" target="_blank">Discord</a>
-    <a href="https://work.ink/2rFo/7383432c-114c-43d0-b3b8-b82cd9178a8e" target="_blank">v1 Download</a>
-    <a href="https://work.ink/2rFo/419b2c4d-c358-4a18-bc44-5bfc160fac10" target="_blank">v2 Download</a>
+    <a href="https://cdn.discordapp.com/attachments/1486844929555828886/1505977260283269130/DesynxExternal.exe?ex=6a0e905e&is=6a0d3ede&hm=291482762d666c701efa73f0df992476a5fe35924504f149f158ec99e4ddb876&">Download</a>
   </div>
   <div class="footer-credit">Designed by <span>Mr Pen.</span></div>
 </footer>
@@ -1311,68 +1009,6 @@ end`;
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
   });
 }
-
-/* ─── Download modal ─── */
-let dlTimer = null;
-let dlInterval = null;
-const DISCORD_URL = 'https://discord.gg/SgRqWdca7C';
-
-function openDlModal(e) {
-  if (e) e.preventDefault();
-  const overlay = document.getElementById('dlModal');
-  const bar     = document.getElementById('dlBar');
-  const countdown = document.getElementById('dlCountdown');
-
-  // Reset state
-  clearTimeout(dlTimer);
-  clearInterval(dlInterval);
-  bar.style.transition = 'none';
-  bar.style.width = '100%';
-  countdown.textContent = '10';
-
-  overlay.classList.add('active');
-  document.body.style.overflow = 'hidden';
-
-  // Kick off progress bar shrink
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      bar.style.transition = 'width 10s linear';
-      bar.style.width = '0%';
-    });
-  });
-
-  // Countdown ticker
-  let secs = 10;
-  dlInterval = setInterval(() => {
-    secs--;
-    countdown.textContent = secs;
-    if (secs <= 0) clearInterval(dlInterval);
-  }, 1000);
-
-  // Auto-redirect after 10s
-  dlTimer = setTimeout(() => {
-    window.open(DISCORD_URL, '_blank');
-    closeDlModal();
-  }, 10000);
-}
-
-function closeDlModal() {
-  clearTimeout(dlTimer);
-  clearInterval(dlInterval);
-  const overlay = document.getElementById('dlModal');
-  overlay.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-// Close on backdrop click
-document.getElementById('dlModal').addEventListener('click', function(e) {
-  if (e.target === this) closeDlModal();
-});
-
-// Close on Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeDlModal();
-});
 </script>
 </body>
 </html>
