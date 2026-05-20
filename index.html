@@ -6,36 +6,18 @@
 <title>DESYNX — FFlag Engine</title>
 <meta name="description" content="Deep FastFlag optimization and engine-level automation for Roblox. Access every flag, unlock full performance, and configure what the settings menu hides.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://desynxx.rf.gd/">
+<meta property="og:url" content="https://sitedesynx.pages.dev/">
 <meta property="og:title" content="DESYNX — FFlag Engine">
 <meta property="og:description" content="Deep FastFlag optimization and engine-level automation for Roblox.">
 <meta name="theme-color" content="#63b3ed">
 <meta http-equiv="Cache-Control" content="public, max-age=3600">
-<meta http-equiv="Expires" content="3600">
-<script>
-(function(){
-  var headless = false;
-  if (navigator.webdriver) headless = true;
-  if (!window.chrome && /HeadlessChrome/.test(navigator.userAgent)) headless = true;
-  if (navigator.plugins.length === 0 && navigator.languages.length === 0) headless = true;
-  if (headless) { document.documentElement.innerHTML = ''; location.href = 'about:blank'; return; }
-  try {
-    var now = Date.now();
-    var last = parseInt(localStorage.getItem('_dsx_last') || '0', 10);
-    var count = parseInt(sessionStorage.getItem('_dsx_hits') || '0', 10);
-    if (now - last < 8000 && count > 3) {
-      document.documentElement.style.cssText = 'background:#05070f;color:#63b3ed;display:flex;align-items:center;justify-content:center;height:100vh;font-family:monospace;font-size:14px;';
-      document.addEventListener('DOMContentLoaded', function(){
-        document.body.innerHTML = '<div style="text-align:center;padding:40px"><div style="font-size:28px;margin-bottom:16px">⚡</div><div style="letter-spacing:4px;text-transform:uppercase;margin-bottom:10px">DESYNX</div><div style="color:#6b7d99;margin-bottom:24px">Too many requests. Please wait a moment.</div><div style="color:#3d4a60;font-size:11px">Auto-refreshing...</div></div>';
-        setTimeout(function(){ location.reload(); }, 6000);
-      });
-      return;
-    }
-    localStorage.setItem('_dsx_last', now);
-    sessionStorage.setItem('_dsx_hits', count + 1);
-  } catch(e) {}
-})();
-</script>
+
+<!-- ╔══════════════════════════════════════════╗
+     ║  UPDATE THIS ONE LINE TO FIX DOWNLOADS  ║
+     ║  Replace with your new Discord CDN URL  ║
+     ╚══════════════════════════════════════════╝ -->
+<script>const DOWNLOAD_URL = "https://discord.gg/SgRqWdca7C";</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
@@ -45,6 +27,7 @@
   --surface: #0b0e1a;
   --surface2: #10131f;
   --surface3: #151924;
+  --surface4: #1a1f2e;
   --border: rgba(255,255,255,0.055);
   --border-hover: rgba(99,179,237,0.35);
   --accent: #63b3ed;
@@ -57,12 +40,22 @@
   --green: #68d391;
   --orange: #f6ad55;
   --purple: #b794f4;
+  --red: #fc8181;
   --font: 'DM Sans', sans-serif;
   --mono: 'JetBrains Mono', monospace;
   --display: 'Syne', sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+
+/* ── Scroll progress bar ── */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent), #a8d8f5);
+  z-index: 9999; transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(99,179,237,0.6);
+}
+
 body {
   background: var(--bg);
   color: var(--white);
@@ -77,27 +70,35 @@ body::before {
   content: '';
   position: fixed; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.018;
+  opacity: 0.022;
   pointer-events: none; z-index: 0;
 }
+
+/* ── Background layers ── */
 .bg-glow {
   position: fixed; top: -320px; left: 50%;
   transform: translateX(-50%);
-  width: 1200px; height: 800px;
-  background: radial-gradient(ellipse at 50% 20%, rgba(99,179,237,0.095) 0%, transparent 65%);
+  width: 1400px; height: 900px;
+  background: radial-gradient(ellipse at 50% 20%, rgba(99,179,237,0.10) 0%, transparent 65%);
   pointer-events: none; z-index: 0;
 }
 .bg-glow2 {
   position: fixed; bottom: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(ellipse at 70% 70%, rgba(66,153,225,0.06), transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+.bg-glow3 {
+  position: fixed; top: 40%; left: -200px;
   width: 600px; height: 600px;
-  background: radial-gradient(ellipse at 70% 70%, rgba(66,153,225,0.055), transparent 65%);
+  background: radial-gradient(ellipse at 30% 50%, rgba(183,148,244,0.035), transparent 65%);
   pointer-events: none; z-index: 0;
 }
 .bg-grid {
   position: fixed; inset: 0;
   background-image:
-    linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(99,179,237,0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,179,237,0.028) 1px, transparent 1px);
   background-size: 56px 56px;
   pointer-events: none; z-index: 0;
   mask-image: radial-gradient(ellipse at 50% 0%, black 5%, transparent 55%);
@@ -114,31 +115,47 @@ body::before {
   90%  { opacity: 1; }
   to   { transform: translateY(-100px) translateX(60px) scale(0.5); opacity: 0; }
 }
+
+/* ── Nav ── */
 nav {
   width: 100%; max-width: 1100px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 24px 36px;
-  position: relative; z-index: 10;
+  padding: 22px 36px;
+  position: sticky; top: 0; z-index: 100;
+  transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+}
+nav.scrolled {
+  background: rgba(5,7,15,0.85);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border-bottom: 1px solid rgba(99,179,237,0.08);
 }
 .nav-logo {
   font-family: var(--mono); font-size: 13px; font-weight: 600;
   color: var(--white); letter-spacing: 6px; text-transform: uppercase;
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
 }
 .nav-logo-icon {
   width: 28px; height: 28px; border-radius: 7px;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 0 16px rgba(99,179,237,0.3);
+  flex-shrink: 0;
 }
 .nav-logo span { color: var(--accent); }
-.nav-right { display: flex; align-items: center; gap: 6px; }
+.nav-right { display: flex; align-items: center; gap: 4px; }
 .nav-link {
   font-size: 13px; color: var(--muted2); text-decoration: none;
   padding: 7px 15px; border-radius: 8px;
   transition: color 0.2s, background 0.2s; font-weight: 500;
 }
 .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.nav-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1px;
+  background: rgba(99,179,237,0.12); border: 1px solid rgba(99,179,237,0.2);
+  color: var(--accent); padding: 2px 7px; border-radius: 999px;
+  vertical-align: middle; margin-left: 5px;
+}
 .nav-discord {
   display: flex; align-items: center; gap: 7px;
   font-size: 13px; color: var(--muted2);
@@ -149,6 +166,8 @@ nav {
   transition: color 0.2s, border-color 0.2s, background 0.2s; font-weight: 500;
 }
 .nav-discord:hover { color: var(--white); border-color: rgba(99,179,237,0.3); background: rgba(99,179,237,0.06); }
+
+/* ── Hero ── */
 .hero {
   padding: 68px 36px 52px;
   display: flex; flex-direction: column; align-items: center;
@@ -195,9 +214,21 @@ nav {
 }
 .hero-sub {
   font-size: 15px; color: var(--muted2); line-height: 1.78;
-  max-width: 420px; opacity: 0; animation: fadeUp 0.7s ease forwards 0.3s;
-  margin-bottom: 36px; font-weight: 400;
+  max-width: 440px; opacity: 0; animation: fadeUp 0.7s ease forwards 0.3s;
+  margin-bottom: 28px; font-weight: 400;
 }
+.hero-pills {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.7s ease forwards 0.35s;
+}
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
+  color: var(--muted2); border: 1px solid var(--border);
+  background: var(--surface); padding: 5px 12px; border-radius: 999px;
+}
+.hero-pill svg { color: var(--accent); }
 .hero-cta {
   display: flex; gap: 10px; flex-wrap: wrap;
   opacity: 0; animation: fadeUp 0.7s ease forwards 0.4s;
@@ -208,7 +239,8 @@ nav {
   font-weight: 700; font-size: 13.5px; text-decoration: none;
   display: flex; align-items: center; gap: 8px;
   transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
-  letter-spacing: 0.2px; position: relative; overflow: hidden;
+  letter-spacing: 0.2px; position: relative; overflow: hidden; cursor: pointer;
+  border: none;
 }
 .btn-primary::after {
   content: ''; position: absolute; inset: 0;
@@ -229,7 +261,6 @@ nav {
   transition: background 0.2s, border-color 0.2s;
 }
 .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: var(--muted); }
-/* Single large download button for the banner */
 .btn-download {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
   color: #05070f; padding: 15px 34px; border-radius: 12px;
@@ -237,6 +268,7 @@ nav {
   display: flex; align-items: center; gap: 10px;
   transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
   letter-spacing: 0.3px; position: relative; overflow: hidden; white-space: nowrap;
+  cursor: pointer; border: none;
 }
 .btn-download::after {
   content: ''; position: absolute; inset: 0;
@@ -250,6 +282,8 @@ nav {
 }
 @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+/* ── Terminal ── */
 .terminal-wrap {
   opacity: 0; animation: fadeUp 0.7s ease forwards 0.5s;
   position: relative;
@@ -274,6 +308,18 @@ nav {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
   background: linear-gradient(90deg, transparent, rgba(99,179,237,0.3), transparent);
 }
+/* Scanline effect */
+.terminal::after {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none; z-index: 2; border-radius: 18px;
+}
 .terminal-bar {
   background: var(--surface2); border-bottom: 1px solid var(--border);
   padding: 12px 18px; display: flex; align-items: center; gap: 8px;
@@ -286,10 +332,21 @@ nav {
   font-family: var(--mono); font-size: 11px; color: var(--muted2);
   margin-left: auto; margin-right: auto; letter-spacing: 1px;
 }
+.terminal-status {
+  font-family: var(--mono); font-size: 9px;
+  color: var(--green); letter-spacing: 1px;
+  display: flex; align-items: center; gap: 4px;
+}
+.terminal-status::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--green); display: block;
+  animation: livePulse 2s infinite;
+}
 .terminal-body {
   padding: 22px 24px; font-family: var(--mono); font-size: 12px;
-  line-height: 2.1; min-height: 210px;
+  line-height: 2.1; min-height: 240px;
   background: linear-gradient(to bottom, var(--surface), rgba(5,7,15,0.5));
+  position: relative; z-index: 1;
 }
 .t-prompt { color: var(--accent); }
 .t-cmd    { color: var(--white); }
@@ -305,6 +362,8 @@ nav {
   box-shadow: 0 0 8px var(--accent);
 }
 @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+/* ── Stats bar ── */
 .stats-bar {
   width: 100%; max-width: 1100px;
   display: grid; grid-template-columns: repeat(4, 1fr);
@@ -334,6 +393,12 @@ nav {
 }
 .stat-num span { color: var(--accent); }
 .stat-label { font-size: 11.5px; color: var(--muted2); font-weight: 400; margin-top: 2px; letter-spacing: 0.2px; }
+.stat-trend {
+  font-family: var(--mono); font-size: 9px; color: var(--green);
+  display: flex; align-items: center; gap: 3px; margin-top: 4px;
+}
+
+/* ── Section shared ── */
 .wrapper { position: relative; z-index: 1; width: 100%; max-width: 1100px; padding: 0 36px; }
 .section-label {
   font-family: var(--mono); font-size: 10px; letter-spacing: 4px;
@@ -346,6 +411,8 @@ nav {
   letter-spacing: -1.2px; margin-bottom: 8px; color: var(--white);
 }
 .section-sub { font-size: 14px; color: var(--muted2); margin-bottom: 36px; line-height: 1.65; }
+
+/* ── Feature Cards ── */
 .cards-section { padding: 16px 0 72px; }
 .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .card {
@@ -389,18 +456,132 @@ nav {
   position: relative; z-index: 1;
 }
 .card-desc { font-size: 12.5px; color: var(--muted2); line-height: 1.68; position: relative; z-index: 1; }
-.steps-section { padding: 16px 0 80px; }
-.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-.step { position: relative; padding-left: 22px; }
-.step::before {
-  content: ''; position: absolute; left: 0; top: 14px;
-  width: 2px; height: calc(100% - 14px);
-  background: linear-gradient(to bottom, var(--accent), transparent);
-  border-radius: 2px;
+.card-tag {
+  display: inline-block; margin-top: 14px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--accent); background: rgba(99,179,237,0.08);
+  border: 1px solid rgba(99,179,237,0.15);
+  padding: 3px 8px; border-radius: 4px; position: relative; z-index: 1;
 }
-.step-num { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 11px; }
+.card-tag.green { color: var(--green); background: rgba(104,211,145,0.08); border-color: rgba(104,211,145,0.15); }
+.card-tag.orange { color: var(--orange); background: rgba(246,173,85,0.08); border-color: rgba(246,173,85,0.15); }
+.card-tag.purple { color: var(--purple); background: rgba(183,148,244,0.08); border-color: rgba(183,148,244,0.15); }
+
+/* ── Steps ── */
+.steps-section { padding: 16px 0 80px; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+.steps-connector {
+  position: absolute; top: 22px; left: calc(33.33% + 10px); right: calc(33.33% + 10px);
+  height: 1px; background: linear-gradient(90deg, rgba(99,179,237,0.3), rgba(99,179,237,0.15), rgba(99,179,237,0.3));
+  pointer-events: none;
+}
+.steps-connector::before, .steps-connector::after {
+  content: ''; position: absolute; top: -3px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent); opacity: 0.5;
+}
+.steps-connector::before { left: 0; }
+.steps-connector::after { right: 0; }
+.step { position: relative; padding: 0 24px 0 0; }
+.step-inner { padding-left: 22px; border-left: 2px solid transparent;
+  background-image: linear-gradient(to bottom, rgba(99,179,237,0.4), transparent);
+  background-size: 2px 100%; background-repeat: no-repeat; background-position: left;
+  padding-bottom: 8px;
+}
+.step-num {
+  font-family: var(--mono); font-size: 10px; color: var(--accent);
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.step-num-circle {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(99,179,237,0.1); border: 1px solid rgba(99,179,237,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 10px; color: var(--accent);
+  flex-shrink: 0;
+}
 .step-title { font-family: var(--display); font-size: 18px; font-weight: 700; margin-bottom: 9px; color: var(--white); }
 .step-desc { font-size: 13px; color: var(--muted2); line-height: 1.72; }
+.step-detail {
+  margin-top: 14px; padding: 12px 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; font-family: var(--mono); font-size: 11px; color: var(--muted2); line-height: 1.7;
+}
+.step-detail span { color: var(--accent); }
+
+/* ── What's New / Changelog ── */
+.changelog-section { padding: 16px 0 80px; }
+.changelog-grid { display: flex; flex-direction: column; gap: 1px; }
+.changelog-item {
+  display: grid; grid-template-columns: 120px 1fr;
+  gap: 24px; padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.changelog-item:last-child { border-bottom: none; }
+.changelog-version {
+  font-family: var(--mono); font-size: 12px; color: var(--accent);
+  letter-spacing: 1px; padding-top: 2px;
+}
+.changelog-date { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 4px; letter-spacing: 0.5px; }
+.changelog-body {}
+.changelog-title { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+.changelog-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.changelog-list li {
+  font-size: 12.5px; color: var(--muted2); display: flex; align-items: flex-start; gap: 8px; line-height: 1.6;
+}
+.changelog-list li::before {
+  content: ''; display: block; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--muted); margin-top: 7px; flex-shrink: 0;
+}
+.changelog-list li.new::before { background: var(--green); }
+.changelog-list li.fix::before { background: var(--orange); }
+.changelog-list li.change::before { background: var(--accent); }
+.cl-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 3px; flex-shrink: 0; margin-top: 4px;
+}
+.cl-tag.new { background: rgba(104,211,145,0.1); color: var(--green); border: 1px solid rgba(104,211,145,0.2); }
+.cl-tag.fix { background: rgba(246,173,85,0.1); color: var(--orange); border: 1px solid rgba(246,173,85,0.2); }
+.cl-tag.change { background: rgba(99,179,237,0.1); color: var(--accent); border: 1px solid rgba(99,179,237,0.2); }
+
+/* ── FAQ ── */
+.faq-section { padding: 16px 0 80px; }
+.faq-list { display: flex; flex-direction: column; gap: 8px; }
+.faq-item {
+  border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.faq-item:hover { border-color: rgba(99,179,237,0.15); }
+.faq-item.open { border-color: rgba(99,179,237,0.2); }
+.faq-q {
+  padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; background: var(--surface2); user-select: none;
+  font-size: 14px; font-weight: 500; color: var(--white); gap: 16px;
+  transition: background 0.2s;
+}
+.faq-q:hover { background: var(--surface3); }
+.faq-item.open .faq-q { color: var(--accent); }
+.faq-chevron {
+  width: 18px; height: 18px; color: var(--muted2); flex-shrink: 0;
+  transition: transform 0.3s, color 0.2s;
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--accent); }
+.faq-a {
+  background: var(--surface); max-height: 0; overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.25s ease;
+}
+.faq-item.open .faq-a { max-height: 300px; }
+.faq-a-inner { padding: 18px 22px; font-size: 13.5px; color: var(--muted2); line-height: 1.75; }
+.faq-a-inner a { color: var(--accent); text-decoration: none; }
+.faq-a-inner a:hover { text-decoration: underline; }
+.faq-a-inner code {
+  font-family: var(--mono); font-size: 12px;
+  background: rgba(99,179,237,0.08); color: var(--accent);
+  padding: 2px 6px; border-radius: 4px;
+}
+
+/* ── Version section ── */
 .version-section {
   padding: 28px 0 20px;
   display: flex; flex-direction: column; align-items: center; gap: 14px;
@@ -422,6 +603,8 @@ nav {
   transition: border-color 0.2s, color 0.2s, background 0.2s; text-decoration: none;
 }
 .support-btn:hover { border-color: rgba(99,179,237,0.3); color: var(--white); background: rgba(99,179,237,0.05); }
+
+/* ── Download banner ── */
 .download-banner {
   width: 100%; max-width: 1100px;
   margin: 0 36px 72px;
@@ -445,7 +628,16 @@ nav {
   letter-spacing: -0.8px; margin-bottom: 9px;
 }
 .banner-text p { font-size: 14px; color: var(--muted2); line-height: 1.65; max-width: 380px; }
-.banner-actions { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+.banner-meta { margin-top: 14px; display: flex; gap: 18px; }
+.banner-meta-item {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+}
+.banner-meta-item svg { color: var(--accent); }
+.banner-actions { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; flex-direction: column; align-items: flex-end; }
+.banner-note { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 8px; text-align: right; }
+
+/* ── Divider ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(99,179,237,0.2); border-radius: 2px; }
@@ -453,27 +645,30 @@ nav {
 .reveal.visible { opacity: 1; transform: translateY(0); }
 .divider { width: 100%; max-width: 1100px; padding: 0 36px; position: relative; z-index: 1; margin-bottom: 48px; }
 .divider-line { height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent); }
-footer {
-  width: 100%; border-top: 1px solid var(--border);
-  padding: 32px 36px;
-  display: grid; grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  position: relative; z-index: 1; margin-top: auto;
-}
-.footer-logo {
-  font-family: var(--mono); font-size: 13px; font-weight: 600;
-  letter-spacing: 5px; color: var(--muted); display: flex; align-items: center; gap: 8px;
-}
-.footer-logo span { color: var(--accent); }
-.footer-links { display: flex; gap: 22px; justify-content: center; }
-.footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: var(--white); }
-.footer-credit { font-size: 12px; color: var(--muted); text-align: right; }
-.footer-credit span { color: var(--accent); }
+
+/* ── Docs ── */
 .docs-root { width: 100%; border-top: 1px solid var(--border); position: relative; z-index: 1; }
 .docs-inner { max-width: 1100px; margin: 0 auto; padding: 80px 36px 100px; }
 .doc-reveal { display: flex; align-items: center; gap: 10px; margin-bottom: 48px; }
 .doc-title { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--white); letter-spacing: 1px; }
+
+/* Doc search */
+.doc-search-wrap {
+  margin-bottom: 24px; position: relative;
+}
+.doc-search {
+  width: 100%; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 11px 16px 11px 40px;
+  font-family: var(--mono); font-size: 12px; color: var(--white);
+  outline: none; transition: border-color 0.2s;
+}
+.doc-search::placeholder { color: var(--muted); }
+.doc-search:focus { border-color: rgba(99,179,237,0.3); }
+.doc-search-icon {
+  position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); pointer-events: none;
+}
+
 .doc-group {
   border: 1px solid var(--border); border-radius: 14px;
   overflow: hidden; margin-bottom: 10px; transition: border-color 0.2s;
@@ -490,6 +685,11 @@ footer {
 .doc-group-header svg { color: var(--muted); flex-shrink: 0; transition: transform 0.25s; }
 .doc-group.open .doc-group-header svg { transform: rotate(0deg); }
 .doc-group:not(.open) .doc-group-header svg { transform: rotate(-90deg); }
+.doc-group-count {
+  margin-left: auto; font-family: var(--mono); font-size: 9px;
+  color: var(--muted); background: var(--surface); border: 1px solid var(--border);
+  padding: 2px 7px; border-radius: 999px; letter-spacing: 0;
+}
 .doc-group-body {
   background: var(--surface); overflow: hidden;
   max-height: 2000px; transition: max-height 0.4s ease;
@@ -497,7 +697,15 @@ footer {
 .doc-group:not(.open) .doc-group-body { max-height: 0; }
 .doc-fn { padding: 16px 24px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
 .doc-fn:hover { background: var(--surface2); }
-.doc-sig { font-family: var(--mono); font-size: 12.5px; color: var(--accent); margin-bottom: 5px; letter-spacing: 0.2px; }
+.doc-fn-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 5px; }
+.doc-sig { font-family: var(--mono); font-size: 12.5px; color: var(--accent); letter-spacing: 0.2px; }
+.doc-sig .param { color: var(--white); }
+.doc-sig .optional { color: var(--muted2); }
+.doc-return {
+  font-family: var(--mono); font-size: 10px; color: var(--muted2);
+  background: var(--surface2); border: 1px solid var(--border);
+  padding: 2px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+}
 .doc-desc { font-size: 12px; color: var(--muted2); line-height: 1.65; padding-left: 4px; }
 .doc-category { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; padding: 16px 24px 4px; }
 .code-body { padding: 24px 28px; position: relative; }
@@ -523,22 +731,59 @@ footer {
 .doc-power { margin-top: 32px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
 .lua-link { color: var(--muted); text-decoration: none; transition: color 0.2s; }
 .lua-link:hover { color: var(--accent); }
+
+/* ── Footer ── */
+footer {
+  width: 100%; border-top: 1px solid var(--border);
+  padding: 40px 36px 32px;
+  position: relative; z-index: 1; margin-top: auto;
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: start; gap: 40px;
+}
+.footer-logo {
+  font-family: var(--mono); font-size: 13px; font-weight: 600;
+  letter-spacing: 5px; color: var(--muted); display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+.footer-logo span { color: var(--accent); }
+.footer-tagline { font-size: 12px; color: var(--muted); line-height: 1.6; max-width: 220px; }
+.footer-col-title { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.footer-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-links a { font-size: 13px; color: var(--muted2); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+.footer-bottom {
+  max-width: 1100px; margin: 28px auto 0;
+  padding-top: 20px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-credit { font-size: 12px; color: var(--muted); }
+.footer-credit span { color: var(--accent); }
+.footer-legal { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+
+/* ── Responsive ── */
 @media (max-width: 820px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center; }
   .hero-left { display: flex; flex-direction: column; align-items: center; }
   .terminal-wrap { display: none; }
   .cards-grid { grid-template-columns: 1fr 1fr; }
   .steps-grid { grid-template-columns: 1fr; gap: 28px; }
+  .steps-connector { display: none; }
   .stats-bar { grid-template-columns: 1fr 1fr; }
   .download-banner { flex-direction: column; text-align: center; padding: 36px 28px; }
-  .banner-actions { justify-content: center; width: 100%; }
+  .banner-actions { justify-content: center; width: 100%; align-items: center; }
   .banner-text p { max-width: 100%; }
-  footer { grid-template-columns: 1fr; gap: 16px; text-align: center; }
-  .footer-links { justify-content: center; }
-  .footer-credit { text-align: center; }
+  .banner-meta { justify-content: center; }
+  .banner-note { text-align: center; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { justify-content: center; text-align: center; flex-direction: column; }
   nav { padding: 20px 20px; }
   .wrapper { padding: 0 20px; }
   .docs-inner { padding: 60px 20px 80px; }
+  .changelog-item { grid-template-columns: 1fr; gap: 8px; }
 }
 @media (max-width: 480px) {
   .cards-grid { grid-template-columns: 1fr; }
@@ -546,27 +791,32 @@ footer {
   .btn-primary, .btn-secondary, .btn-download { justify-content: center; }
   .stats-bar { grid-template-columns: 1fr 1fr; }
   .download-banner { padding: 28px 20px; }
+  .hero-pills { justify-content: center; }
 }
 </style>
 </head>
 <body>
 
+<div id="scroll-progress"></div>
 <div class="bg-glow"></div>
 <div class="bg-glow2"></div>
+<div class="bg-glow3"></div>
 <div class="bg-grid"></div>
 <div class="bg-particles" id="particles"></div>
 
 <!-- NAV -->
-<nav>
-  <div class="nav-logo">
+<nav id="mainNav">
+  <a class="nav-logo" href="#">
     <div class="nav-logo-icon">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#05070f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
     </div>
-    <span>DESYNX</span>
-  </div>
+    <span>DE</span>SYNX
+  </a>
   <div class="nav-right">
     <a href="#features" class="nav-link">Features</a>
+    <a href="#changelog" class="nav-link">Changelog</a>
     <a href="#docs" class="nav-link">Docs</a>
+    <a href="#faq" class="nav-link">FAQ</a>
     <a href="https://discord.gg/SgRqWdca7C" target="_blank" class="nav-discord">
       <svg width="14" height="14" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.71,32.65-1.82,56.6.48,80.05a105.73,105.73,0,0,0,32.44,16.31,75.7,75.7,0,0,0,7.19-11.73,69.07,69.07,0,0,1-11.37-5.43c.95-.7,1.89-1.44,2.78-2.2a74.22,74.22,0,0,0,64.15,0c.9.76,1.83,1.5,2.78,2.2a69.08,69.08,0,0,1-11.37,5.43,75.8,75.8,0,0,0,7.19,11.73,105.47,105.47,0,0,0,32.44-16.31C129.66,50.7,125.13,26.89,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
       Discord
@@ -578,7 +828,7 @@ footer {
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <div class="live-badge"><span class="live-dot"></span>Live &amp; Updated</div>
+      <div class="live-badge"><span class="live-dot"></span>Live &amp; Updated — v2.0</div>
       <span class="hero-eyebrow">FFlag Engine for Roblox</span>
       <h1 class="hero-title">
         <span class="blue">De</span><span class="white">synx</span>
@@ -586,11 +836,29 @@ footer {
       <p class="hero-sub">
         Deep FastFlag optimization and engine-level automation for Roblox. Access every flag, unlock full performance, and configure what the settings menu hides.
       </p>
+      <div class="hero-pills">
+        <div class="hero-pill">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Windows 10 / 11
+        </div>
+        <div class="hero-pill">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Lua 5.4
+        </div>
+        <div class="hero-pill">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          No inject required
+        </div>
+        <div class="hero-pill">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          &lt;12ms apply time
+        </div>
+      </div>
       <div class="hero-cta">
-        <a href="https://cdn.discordapp.com/attachments/1486844929555828886/1505977260283269130/DesynxExternal.exe?ex=6a0e905e&is=6a0d3ede&hm=291482762d666c701efa73f0df992476a5fe35924504f149f158ec99e4ddb876&" class="btn-primary">
+        <button class="btn-primary" onclick="location.href=DOWNLOAD_URL">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download Desynx
-        </a>
+        </button>
         <a href="https://discord.gg/SgRqWdca7C" target="_blank" class="btn-secondary">
           <svg width="14" height="14" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.71,32.65-1.82,56.6.48,80.05a105.73,105.73,0,0,0,32.44,16.31,75.7,75.7,0,0,0,7.19-11.73,69.07,69.07,0,0,1-11.37-5.43c.95-.7,1.89-1.44,2.78-2.2a74.22,74.22,0,0,0,64.15,0c.9.76,1.83,1.5,2.78,2.2a69.08,69.08,0,0,1-11.37,5.43,75.8,75.8,0,0,0,7.19,11.73,105.47,105.47,0,0,0,32.44-16.31C129.66,50.7,125.13,26.89,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
           Join Community
@@ -607,6 +875,7 @@ footer {
           <span class="t-dot yel"></span>
           <span class="t-dot grn"></span>
           <span class="terminal-title">desynx · lua console</span>
+          <span class="terminal-status">connected</span>
         </div>
         <div class="terminal-body" id="termBody"></div>
       </div>
@@ -619,18 +888,34 @@ footer {
   <div class="stat">
     <div class="stat-num"><span id="stat1">0</span>+</div>
     <div class="stat-label">FastFlags tracked</div>
+    <div class="stat-trend">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+      +340 this patch
+    </div>
   </div>
   <div class="stat">
     <div class="stat-num">v<span id="stat2">2</span>.0</div>
     <div class="stat-label">Current version</div>
+    <div class="stat-trend">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Released recently
+    </div>
   </div>
   <div class="stat">
     <div class="stat-num"><span id="stat3">0</span>+</div>
     <div class="stat-label">Community members</div>
+    <div class="stat-trend">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+      Growing fast
+    </div>
   </div>
   <div class="stat">
     <div class="stat-num"><span id="stat4">0</span>ms</div>
     <div class="stat-label">Avg flag apply time</div>
+    <div class="stat-trend">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+      Engine-level speed
+    </div>
   </div>
 </div>
 
@@ -640,55 +925,70 @@ footer {
   <div class="cards-section reveal" id="features">
     <span class="section-label">Features</span>
     <h2 class="section-title">Everything you need</h2>
-    <p class="section-sub">A complete engine toolkit — from flags to live telemetry.</p>
+    <p class="section-sub">A complete engine toolkit — from flags to live telemetry. Every tool purpose-built for Roblox.</p>
     <div class="cards-grid">
 
       <a class="card" href="#">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-        </div>
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
         <div class="card-name">FFlag Editor</div>
-        <p class="card-desc">Bool, String, and Integer flags with live search and Modified Only tracking.</p>
+        <p class="card-desc">Bool, String, and Integer flags with live search and Modified Only tracking. See exactly what's changed.</p>
+        <span class="card-tag">Core</span>
       </a>
 
       <a class="card" href="#">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </div>
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
         <div class="card-name">Lua Executor</div>
-        <p class="card-desc">Integrated IDE with autocomplete, bracket pairing, and real-time debug console.</p>
+        <p class="card-desc">Integrated IDE with autocomplete, bracket pairing, and real-time debug console. Full Lua 5.4 support.</p>
+        <span class="card-tag">Core</span>
       </a>
 
       <a class="card" href="#">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
-        </div>
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg></div>
         <div class="card-name">Combat Desync</div>
-        <p class="card-desc">Engine-level sync management tuned for tactical advantages in competitive games.</p>
+        <p class="card-desc">Engine-level sync management tuned for tactical advantages in competitive Roblox games.</p>
+        <span class="card-tag purple">Competitive</span>
       </a>
 
       <a class="card" href="#">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
         <div class="card-name">Performance</div>
-        <p class="card-desc">FPS unlocking and granular toggles for Shadows, Blur, and Post-Processing.</p>
+        <p class="card-desc">FPS unlocking and granular toggles for Shadows, Blur, Post-Processing, and LOD thresholds.</p>
+        <span class="card-tag green">Perf</span>
       </a>
 
       <a class="card" href="#">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
         <div class="card-name">Live Telemetry</div>
-        <p class="card-desc">Sidebar tracking for PID, boot-time, memory footprint, and active flag counts.</p>
+        <p class="card-desc">Sidebar tracking for PID, boot-time, memory footprint, and active flag counts in real time.</p>
+        <span class="card-tag green">Live</span>
       </a>
 
       <a class="card" href="#">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
-        </div>
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></div>
         <div class="card-name">Integrations</div>
         <p class="card-desc">RGB/A theme engine, Spotify overlay, and Discord Rich Presence support.</p>
+        <span class="card-tag orange">Extra</span>
+      </a>
+
+      <a class="card" href="#">
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div>
+        <div class="card-name">Script Library</div>
+        <p class="card-desc">Built-in collection of community-verified scripts. Save, name, and hotkey your favourite presets.</p>
+        <span class="card-tag">Library</span>
+      </a>
+
+      <a class="card" href="#">
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="card-name">Stealth Mode</div>
+        <p class="card-desc">Memory-masked process and minimised footprint. Designed to stay below surface-level detection.</p>
+        <span class="card-tag purple">Stealth</span>
+      </a>
+
+      <a class="card" href="#">
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+        <div class="card-name">Auto-Update</div>
+        <p class="card-desc">Background patch checks with one-click updates. Flag definitions refresh automatically after Roblox deploys.</p>
+        <span class="card-tag green">Auto</span>
       </a>
 
     </div>
@@ -698,28 +998,108 @@ footer {
   <div class="steps-section reveal">
     <span class="section-label">How it works</span>
     <h2 class="section-title">Three steps to full control</h2>
-    <p class="section-sub">Get up and running in under a minute.</p>
+    <p class="section-sub">Get up and running in under a minute. No installer, no setup wizard, no bloat.</p>
     <div class="steps-grid">
+      <div class="steps-connector"></div>
       <div class="step">
-        <div class="step-num">01 · Download</div>
-        <div class="step-title">Grab the latest build</div>
-        <div class="step-desc">Download the Desynx executable. No installer needed — just run the binary and you're ready to go.</div>
+        <div class="step-inner">
+          <div class="step-num">
+            <div class="step-num-circle">01</div>
+            Download
+          </div>
+          <div class="step-title">Grab the latest build</div>
+          <div class="step-desc">Download the Desynx executable. No installer needed — just run the binary and you're ready to go.</div>
+          <div class="step-detail"><span>DesynxExternal.exe</span> — single file, no dependencies. ~3 MB.</div>
+        </div>
       </div>
       <div class="step">
-        <div class="step-num">02 · Attach</div>
-        <div class="step-title">Inject into Roblox</div>
-        <div class="step-desc">Launch Roblox, then click Attach in Desynx. The engine hooks instantly and loads all available flags.</div>
+        <div class="step-inner">
+          <div class="step-num">
+            <div class="step-num-circle">02</div>
+            Attach
+          </div>
+          <div class="step-title">Connect to Roblox</div>
+          <div class="step-desc">Launch Roblox, then click Attach in Desynx. The engine hooks instantly and loads all available flags.</div>
+          <div class="step-detail">Detection: <span>pid: auto</span> · attach time: <span>&lt;200ms</span></div>
+        </div>
       </div>
       <div class="step">
-        <div class="step-num">03 · Optimize</div>
-        <div class="step-title">Configure &amp; execute</div>
-        <div class="step-desc">Browse and modify flags in real-time, run Lua scripts, and monitor performance live — all in one panel.</div>
+        <div class="step-inner">
+          <div class="step-num">
+            <div class="step-num-circle">03</div>
+            Optimize
+          </div>
+          <div class="step-title">Configure &amp; execute</div>
+          <div class="step-desc">Browse and modify flags in real-time, run Lua scripts, and monitor performance live — all in one panel.</div>
+          <div class="step-detail">4200+ flags available · changes apply in <span>&lt;12ms</span></div>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- CHANGELOG -->
+  <div class="changelog-section reveal" id="changelog">
+    <span class="section-label">Changelog</span>
+    <h2 class="section-title">What's new</h2>
+    <p class="section-sub">Every update, every fix — documented. Check the Discord for nightly builds.</p>
+    <div class="changelog-grid">
+
+      <div class="changelog-item">
+        <div>
+          <div class="changelog-version">v2.0</div>
+          <div class="changelog-date">Latest</div>
+        </div>
+        <div class="changelog-body">
+          <div class="changelog-title">FFlag Engine rewrite — faster, smarter, deeper</div>
+          <ul class="changelog-list">
+            <li class="new"><span class="cl-tag new">New</span> Full Lua 5.4 runtime replacing previous 5.1 sandbox</li>
+            <li class="new"><span class="cl-tag new">New</span> Script Library with save, hotkey, and cloud-sync support</li>
+            <li class="new"><span class="cl-tag new">New</span> Auto-update engine — patches install silently in background</li>
+            <li class="new"><span class="cl-tag new">New</span> Discord Rich Presence and Spotify overlay integrations</li>
+            <li class="change"><span class="cl-tag change">Changed</span> Flag apply time reduced from ~40ms to &lt;12ms</li>
+            <li class="change"><span class="cl-tag change">Changed</span> Memory footprint reduced by 60% vs v1.x</li>
+            <li class="fix"><span class="cl-tag fix">Fix</span> Resolved rare crash on Roblox rapid-restart</li>
+            <li class="fix"><span class="cl-tag fix">Fix</span> Bool flag toggles now persist across Roblox session reloads</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="changelog-item">
+        <div>
+          <div class="changelog-version">v1.4</div>
+          <div class="changelog-date">Previous</div>
+        </div>
+        <div class="changelog-body">
+          <div class="changelog-title">Live Telemetry + Performance panel</div>
+          <ul class="changelog-list">
+            <li class="new"><span class="cl-tag new">New</span> Sidebar telemetry: PID, memory, boot-time, flag count</li>
+            <li class="new"><span class="cl-tag new">New</span> Modified Only filter in FFlag Editor</li>
+            <li class="change"><span class="cl-tag change">Changed</span> UI redesigned with dark glass aesthetic</li>
+            <li class="fix"><span class="cl-tag fix">Fix</span> Integer flag values no longer overflow on 32-bit targets</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="changelog-item">
+        <div>
+          <div class="changelog-version">v1.0</div>
+          <div class="changelog-date">Initial release</div>
+        </div>
+        <div class="changelog-body">
+          <div class="changelog-title">Initial public release</div>
+          <ul class="changelog-list">
+            <li class="new"><span class="cl-tag new">New</span> FFlag Editor with Bool / String / Int types</li>
+            <li class="new"><span class="cl-tag new">New</span> Lua executor with real-time console output</li>
+            <li class="new"><span class="cl-tag new">New</span> Combat desync toggle via NextGenReplicatorEnabledWrite4</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- VERSION -->
-  <div class="version-section reveal">
+  <div class="version-section">
     <div class="version-badge">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       version-2.0 · FFlag Engine
@@ -737,12 +1117,99 @@ footer {
   <div class="banner-text">
     <h2>Ready to unlock the engine?</h2>
     <p>Join thousands of Roblox players already using Desynx for faster, deeper, and more competitive gameplay.</p>
+    <div class="banner-meta">
+      <div class="banner-meta-item">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+        Windows 10 / 11
+      </div>
+      <div class="banner-meta-item">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>
+        Free download
+      </div>
+      <div class="banner-meta-item">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        No installer
+      </div>
+    </div>
   </div>
   <div class="banner-actions">
-    <a href="https://cdn.discordapp.com/attachments/1486844929555828886/1505977260283269130/DesynxExternal.exe?ex=6a0e905e&is=6a0d3ede&hm=291482762d666c701efa73f0df992476a5fe35924504f149f158ec99e4ddb876&" class="btn-download">
+    <button class="btn-download" onclick="location.href=DOWNLOAD_URL">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download Desynx
-    </a>
+    </button>
+    <div class="banner-note">Latest: v2.0 · Get link from Discord if expired</div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="wrapper">
+  <div class="faq-section reveal" id="faq">
+    <span class="section-label">FAQ</span>
+    <h2 class="section-title">Common questions</h2>
+    <p class="section-sub">Everything you need to know before getting started.</p>
+    <div class="faq-list">
+
+      <div class="faq-item open">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Does Desynx require me to inject into Roblox?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">No. Desynx attaches externally to the Roblox process and modifies flags through memory writes — no DLL injection, no kernel drivers. Just run the binary and click Attach.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Will I get banned for using Desynx?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Desynx operates at the FFlag and memory level, not the exploit layer. It does not modify game files or network packets. Risk is minimal compared to traditional executors, but use at your own discretion — no tool can claim zero risk.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          The download link isn't working — how do I get the file?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Discord CDN links expire after a period of time. The latest download is always pinned in our <a href="https://discord.gg/SgRqWdca7C" target="_blank">#downloads</a> channel on Discord. Join to get the most recent build instantly.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What's the difference between <code>setflag</code> and <code>applyflag</code>?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner"><code>setflag</code> sets the value in Desynx's internal state and immediately writes it to Roblox memory in one call. <code>applyflag</code> only writes the existing internal value to memory — useful when you've modified the flag table manually and want to push the change without calling <code>setflag</code> again.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Does Desynx work after Roblox updates?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes. The v2.0 auto-update system checks for flag definition updates on launch and silently patches them. For binary updates (after major Roblox engine changes) watch <a href="https://discord.gg/SgRqWdca7C" target="_blank">#announcements</a> on Discord — we typically push a fix within 24 hours.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Can I use Desynx on multiple Roblox instances?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Multi-instance support is on the v2.1 roadmap. Currently Desynx attaches to the first detected Roblox PID. You can run separate Desynx windows and manually specify the PID via the attach dialog as a workaround.</div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -755,71 +1222,189 @@ footer {
       <span class="doc-title">Desynx Lua API Reference</span>
     </div>
 
-    <div class="doc-group open">
-      <div class="doc-group-header">
+    <div class="doc-search-wrap">
+      <svg class="doc-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="doc-search" id="docSearch" type="text" placeholder="Search functions..." oninput="filterDocs(this.value)">
+    </div>
+
+    <div class="doc-group open" data-group="fflag">
+      <div class="doc-group-header" onclick="this.parentElement.classList.toggle('open')">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
         FFlag Functions
+        <span class="doc-group-count">5 functions</span>
       </div>
       <div class="doc-group-body">
-        <div class="doc-fn"><div class="doc-sig">desynx.getflag(name)</div><div class="doc-desc">Returns a table with flag info: {name, type, typename, value, modified, offset}<br>Returns nil if flag not found.</div></div>
-        <div class="doc-fn"><div class="doc-sig">desynx.setflag(name, value, [type])</div><div class="doc-desc">Sets and applies flag value. Optional type: "Bool", "String", "Int"<br>Returns true on success, false and error message on failure.</div></div>
-        <div class="doc-fn"><div class="doc-sig">desynx.applyflag(name)</div><div class="doc-desc">Writes the flag value to Roblox memory. Returns true on success.</div></div>
-        <div class="doc-fn"><div class="doc-sig">desynx.resetflag(name)</div><div class="doc-desc">Resets flag to its original value.</div></div>
-        <div class="doc-fn" style="border-bottom:none;"><div class="doc-sig">desynx.listflags([pattern])</div><div class="doc-desc">Returns array of flag names matching pattern. Empty pattern returns all flags.</div></div>
+        <div class="doc-fn" data-search="getflag name returns table info type value modified offset nil">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.getflag(<span class="param">name</span>)</div>
+            <div class="doc-return">→ table | nil</div>
+          </div>
+          <div class="doc-desc">Returns a table with flag info: <code style="font-family:var(--mono);font-size:11px;background:rgba(99,179,237,0.08);color:var(--accent);padding:1px 5px;border-radius:3px">{name, type, typename, value, modified, offset}</code>. Returns nil if the flag is not found.</div>
+        </div>
+        <div class="doc-fn" data-search="setflag name value type bool string int sets applies returns true false">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.setflag(<span class="param">name</span>, <span class="param">value</span>, <span class="optional">[type]</span>)</div>
+            <div class="doc-return">→ bool, string?</div>
+          </div>
+          <div class="doc-desc">Sets and applies the flag value in one call. Optional type hint: <code style="font-family:var(--mono);font-size:11px;background:rgba(99,179,237,0.08);color:var(--accent);padding:1px 5px;border-radius:3px">"Bool"</code>, <code style="font-family:var(--mono);font-size:11px;background:rgba(99,179,237,0.08);color:var(--accent);padding:1px 5px;border-radius:3px">"String"</code>, <code style="font-family:var(--mono);font-size:11px;background:rgba(99,179,237,0.08);color:var(--accent);padding:1px 5px;border-radius:3px">"Int"</code>. Returns true on success, false + error message on failure.</div>
+        </div>
+        <div class="doc-fn" data-search="applyflag name write memory roblox returns true">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.applyflag(<span class="param">name</span>)</div>
+            <div class="doc-return">→ bool</div>
+          </div>
+          <div class="doc-desc">Writes the existing internal flag value to Roblox memory without changing it. Use after manually modifying the flag table. Returns true on success.</div>
+        </div>
+        <div class="doc-fn" data-search="resetflag name original value restore">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.resetflag(<span class="param">name</span>)</div>
+            <div class="doc-return">→ bool</div>
+          </div>
+          <div class="doc-desc">Resets the named flag to its original value as read at attach time and writes it back to memory.</div>
+        </div>
+        <div class="doc-fn" data-search="listflags pattern array names search all flags" style="border-bottom:none">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.listflags(<span class="optional">[pattern]</span>)</div>
+            <div class="doc-return">→ string[]</div>
+          </div>
+          <div class="doc-desc">Returns an array of flag names matching the Lua pattern string. An empty or nil pattern returns all available flags.</div>
+        </div>
       </div>
     </div>
 
-    <div class="doc-group open">
-      <div class="doc-group-header">
+    <div class="doc-group open" data-group="desync">
+      <div class="doc-group-header" onclick="this.parentElement.classList.toggle('open')">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
         Desync Functions
+        <span class="doc-group-count">2 functions</span>
       </div>
       <div class="doc-group-body">
-        <div class="doc-fn"><div class="doc-sig">desynx.setdesync(enabled)</div><div class="doc-desc">Enable/disable desync (NextGenReplicatorEnabledWrite4). Pass true to enable, false to disable.</div></div>
-        <div class="doc-fn" style="border-bottom:none;"><div class="doc-sig">desynx.getdesync()</div><div class="doc-desc">Returns current desync state (boolean).</div></div>
+        <div class="doc-fn" data-search="setdesync enabled disable nextgen replicator">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.setdesync(<span class="param">enabled</span>)</div>
+            <div class="doc-return">→ bool</div>
+          </div>
+          <div class="doc-desc">Enable or disable desync via <code style="font-family:var(--mono);font-size:11px;background:rgba(99,179,237,0.08);color:var(--accent);padding:1px 5px;border-radius:3px">NextGenReplicatorEnabledWrite4</code>. Pass true to enable, false to disable.</div>
+        </div>
+        <div class="doc-fn" data-search="getdesync returns state boolean current" style="border-bottom:none">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.getdesync()</div>
+            <div class="doc-return">→ bool</div>
+          </div>
+          <div class="doc-desc">Returns the current desync state as a boolean.</div>
+        </div>
       </div>
     </div>
 
-    <div class="doc-group open">
-      <div class="doc-group-header">
+    <div class="doc-group open" data-group="utility">
+      <div class="doc-group-header" onclick="this.parentElement.classList.toggle('open')">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
         Utility Functions
+        <span class="doc-group-count">5 functions</span>
       </div>
       <div class="doc-group-body">
-        <div class="doc-fn"><div class="doc-sig">desynx.isattached()</div><div class="doc-desc">Returns: attached (bool), pid (number if attached)</div></div>
-        <div class="doc-fn"><div class="doc-sig">desynx.notify(msg, [duration], [isError], [isSuccess])</div><div class="doc-desc">Shows a notification. Duration defaults to 3 seconds.</div></div>
-        <div class="doc-fn"><div class="doc-sig">desynx.sleep(ms)</div><div class="doc-desc">Non-blocking sleep (max 30000ms). UI stays responsive.</div></div>
-        <div class="doc-fn"><div class="doc-sig">desynx.clear()</div><div class="doc-desc">Clears the output console.</div></div>
-        <div class="doc-fn" style="border-bottom:none;"><div class="doc-sig">print(...)</div><div class="doc-desc">Standard Lua print, outputs to console.</div></div>
+        <div class="doc-fn" data-search="isattached attached pid number bool">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.isattached()</div>
+            <div class="doc-return">→ bool, number?</div>
+          </div>
+          <div class="doc-desc">Returns: attached (bool), pid (number, only present when attached).</div>
+        </div>
+        <div class="doc-fn" data-search="notify msg message duration iserror issuccess notification toast">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.notify(<span class="param">msg</span>, <span class="optional">[duration]</span>, <span class="optional">[isError]</span>, <span class="optional">[isSuccess]</span>)</div>
+            <div class="doc-return">→ void</div>
+          </div>
+          <div class="doc-desc">Shows a notification toast. Duration defaults to 3 seconds. Pass isError=true for red styling, isSuccess=true for green.</div>
+        </div>
+        <div class="doc-fn" data-search="sleep ms milliseconds wait non-blocking 30000">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.sleep(<span class="param">ms</span>)</div>
+            <div class="doc-return">→ void</div>
+          </div>
+          <div class="doc-desc">Non-blocking sleep (max 30,000ms). The UI remains responsive during the wait.</div>
+        </div>
+        <div class="doc-fn" data-search="clear console output">
+          <div class="doc-fn-head">
+            <div class="doc-sig">desynx.clear()</div>
+            <div class="doc-return">→ void</div>
+          </div>
+          <div class="doc-desc">Clears the output console panel.</div>
+        </div>
+        <div class="doc-fn" data-search="print standard lua output console" style="border-bottom:none">
+          <div class="doc-fn-head">
+            <div class="doc-sig">print(<span class="optional">...</span>)</div>
+            <div class="doc-return">→ void</div>
+          </div>
+          <div class="doc-desc">Standard Lua print — all arguments are serialised and output to the console.</div>
+        </div>
       </div>
     </div>
 
-    <div class="doc-group open">
-      <div class="doc-group-header">
+    <div class="doc-group open" data-group="gui">
+      <div class="doc-group-header" onclick="this.parentElement.classList.toggle('open')">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
         GUI Functions
+        <span class="doc-group-count">11 functions</span>
       </div>
       <div class="doc-group-body">
-        <div class="doc-category">Creating Elements:</div>
-        <div class="doc-fn"><div class="doc-sig">gui.window(title, x, y, w, h)</div><div class="doc-desc">Creates a draggable window. Returns window ID.</div></div>
-        <div class="doc-fn"><div class="doc-sig">gui.button(windowId, text, x, y, w, h, callback)</div><div class="doc-desc">Adds button to window. Callback is global function name.</div></div>
-        <div class="doc-fn"><div class="doc-sig">gui.label(windowId, text, x, y)</div><div class="doc-desc">Adds text label to window.</div></div>
-        <div class="doc-fn"><div class="doc-sig">gui.checkbox(windowId, text, x, y, callback)</div><div class="doc-desc">Adds checkbox to window.</div></div>
-        <div class="doc-fn"><div class="doc-sig">gui.slider(windowId, text, x, y, w, min, max, default, callback)</div><div class="doc-desc">Adds slider to window.</div></div>
-        <div class="doc-fn"><div class="doc-sig">gui.input(windowId, label, x, y, w, default)</div><div class="doc-desc">Adds text input field to window.</div></div>
-        <div class="doc-category" style="margin-top:20px;">Utility Functions:</div>
-        <div class="doc-fn"><div class="doc-sig">gui.settext(id, text)</div><div class="doc-desc">Update element text/label.</div></div>
-        <div class="doc-fn"><div class="doc-sig">gui.setvisible(id, bool)</div><div class="doc-desc">Show/hide element.</div></div>
-        <div class="doc-fn"><div class="doc-sig">gui.getvalue(id)</div><div class="doc-desc">Get value from checkbox/slider/input.</div></div>
-        <div class="doc-fn"><div class="doc-sig">gui.destroy(id)</div><div class="doc-desc">Remove element and its children.</div></div>
-        <div class="doc-fn" style="border-bottom:none;"><div class="doc-sig">gui.clear()</div><div class="doc-desc">Remove all GUI elements.</div></div>
+        <div class="doc-category">Creating Elements</div>
+        <div class="doc-fn" data-search="gui window title x y w h draggable creates returns id">
+          <div class="doc-fn-head">
+            <div class="doc-sig">gui.window(<span class="param">title</span>, <span class="param">x</span>, <span class="param">y</span>, <span class="param">w</span>, <span class="param">h</span>)</div>
+            <div class="doc-return">→ windowId</div>
+          </div>
+          <div class="doc-desc">Creates a draggable window. Returns a window ID used to attach child elements.</div>
+        </div>
+        <div class="doc-fn" data-search="gui button windowid text x y w h callback click">
+          <div class="doc-fn-head">
+            <div class="doc-sig">gui.button(<span class="param">windowId</span>, <span class="param">text</span>, <span class="param">x</span>, <span class="param">y</span>, <span class="param">w</span>, <span class="param">h</span>, <span class="param">callback</span>)</div>
+            <div class="doc-return">→ id</div>
+          </div>
+          <div class="doc-desc">Adds a button to a window. Callback is a global function name (string).</div>
+        </div>
+        <div class="doc-fn" data-search="gui label windowid text x y">
+          <div class="doc-fn-head">
+            <div class="doc-sig">gui.label(<span class="param">windowId</span>, <span class="param">text</span>, <span class="param">x</span>, <span class="param">y</span>)</div>
+            <div class="doc-return">→ id</div>
+          </div>
+          <div class="doc-desc">Adds a static text label to a window.</div>
+        </div>
+        <div class="doc-fn" data-search="gui checkbox windowid text x y callback toggle">
+          <div class="doc-fn-head">
+            <div class="doc-sig">gui.checkbox(<span class="param">windowId</span>, <span class="param">text</span>, <span class="param">x</span>, <span class="param">y</span>, <span class="param">callback</span>)</div>
+            <div class="doc-return">→ id</div>
+          </div>
+          <div class="doc-desc">Adds a checkbox to a window. Callback receives the new boolean state on change.</div>
+        </div>
+        <div class="doc-fn" data-search="gui slider windowid text x y w min max default callback range">
+          <div class="doc-fn-head">
+            <div class="doc-sig">gui.slider(<span class="param">windowId</span>, <span class="param">text</span>, <span class="param">x</span>, <span class="param">y</span>, <span class="param">w</span>, <span class="param">min</span>, <span class="param">max</span>, <span class="param">default</span>, <span class="param">callback</span>)</div>
+            <div class="doc-return">→ id</div>
+          </div>
+          <div class="doc-desc">Adds a range slider. Callback receives the current numeric value on drag.</div>
+        </div>
+        <div class="doc-fn" data-search="gui input windowid label x y w default text field">
+          <div class="doc-fn-head">
+            <div class="doc-sig">gui.input(<span class="param">windowId</span>, <span class="param">label</span>, <span class="param">x</span>, <span class="param">y</span>, <span class="param">w</span>, <span class="param">default</span>)</div>
+            <div class="doc-return">→ id</div>
+          </div>
+          <div class="doc-desc">Adds a text input field to a window.</div>
+        </div>
+        <div class="doc-category" style="margin-top:16px">Utility</div>
+        <div class="doc-fn" data-search="gui settext id text update label"><div class="doc-fn-head"><div class="doc-sig">gui.settext(<span class="param">id</span>, <span class="param">text</span>)</div><div class="doc-return">→ void</div></div><div class="doc-desc">Update an element's text or label dynamically.</div></div>
+        <div class="doc-fn" data-search="gui setvisible id bool show hide visible"><div class="doc-fn-head"><div class="doc-sig">gui.setvisible(<span class="param">id</span>, <span class="param">bool</span>)</div><div class="doc-return">→ void</div></div><div class="doc-desc">Show or hide any GUI element by ID.</div></div>
+        <div class="doc-fn" data-search="gui getvalue id checkbox slider input value read"><div class="doc-fn-head"><div class="doc-sig">gui.getvalue(<span class="param">id</span>)</div><div class="doc-return">→ any</div></div><div class="doc-desc">Get the current value from a checkbox, slider, or input element.</div></div>
+        <div class="doc-fn" data-search="gui destroy id remove element children"><div class="doc-fn-head"><div class="doc-sig">gui.destroy(<span class="param">id</span>)</div><div class="doc-return">→ void</div></div><div class="doc-desc">Remove an element and all its children from the GUI.</div></div>
+        <div class="doc-fn" data-search="gui clear all remove elements" style="border-bottom:none"><div class="doc-fn-head"><div class="doc-sig">gui.clear()</div><div class="doc-return">→ void</div></div><div class="doc-desc">Remove all GUI elements at once.</div></div>
       </div>
     </div>
 
-    <div class="doc-group doc-examples open">
-      <div class="doc-group-header">
+    <div class="doc-group doc-examples open" data-group="examples">
+      <div class="doc-group-header" onclick="this.parentElement.classList.toggle('open')">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
         Example Scripts
+        <span class="doc-group-count">3 examples</span>
       </div>
       <div class="doc-group-body code-body">
         <button class="code-copy" id="copyBtn" onclick="copyCode()">Copy</button>
@@ -849,39 +1434,65 @@ desynx.setdesync(<span class="kw">true</span>)
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">
-    <div class="nav-logo-icon" style="width:22px;height:22px;border-radius:6px;box-shadow:none;">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#05070f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">
+        <div class="nav-logo-icon" style="width:22px;height:22px;border-radius:6px;box-shadow:none;flex-shrink:0;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#05070f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <span>DE</span>SYNX
+      </div>
+      <div class="footer-tagline">Deep FastFlag optimization and engine-level automation for Roblox.</div>
     </div>
-    <span>DESYNX</span>
+    <div>
+      <div class="footer-col-title">Links</div>
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#changelog">Changelog</a>
+        <a href="#docs">API Docs</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Community</div>
+      <div class="footer-links">
+        <a href="https://discord.gg/SgRqWdca7C" target="_blank">Discord Server</a>
+        <a href="https://discord.gg/SgRqWdca7C" target="_blank">Announcements</a>
+        <a href="https://discord.gg/SgRqWdca7C" target="_blank">Get Download</a>
+      </div>
+    </div>
   </div>
-  <div class="footer-links">
-    <a href="#features">Features</a>
-    <a href="#docs">Docs</a>
-    <a href="https://discord.gg/SgRqWdca7C" target="_blank">Discord</a>
-    <a href="https://cdn.discordapp.com/attachments/1486844929555828886/1505977260283269130/DesynxExternal.exe?ex=6a0e905e&is=6a0d3ede&hm=291482762d666c701efa73f0df992476a5fe35924504f149f158ec99e4ddb876&">Download</a>
+  <div class="footer-bottom">
+    <div class="footer-credit">Designed by <span>Mr Pen.</span></div>
+    <div class="footer-legal">DESYNX · v2.0 · Not affiliated with Roblox Corporation</div>
   </div>
-  <div class="footer-credit">Designed by <span>Mr Pen.</span></div>
 </footer>
 
 <script>
-/* ─── Particles ─── */
+/* ── Scroll progress bar ── */
+window.addEventListener('scroll', () => {
+  const el = document.getElementById('scroll-progress');
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  el.style.width = Math.min(pct, 100) + '%';
+});
+
+/* ── Sticky nav ── */
+const mainNav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  mainNav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+/* ── Particles ── */
 const pContainer = document.getElementById('particles');
-for (let i = 0; i < 8; i++) {
+for (let i = 0; i < 12; i++) {
   const p = document.createElement('div');
   p.className = 'particle';
   const sz = 1 + Math.random() * 2.5;
-  p.style.cssText = `
-    left: ${Math.random() * 100}%;
-    width: ${sz}px; height: ${sz}px;
-    animation-duration: ${9 + Math.random() * 16}s;
-    animation-delay: ${Math.random() * 14}s;
-    opacity: ${0.15 + Math.random() * 0.45};
-  `;
+  p.style.cssText = `left:${Math.random()*100}%;width:${sz}px;height:${sz}px;animation-duration:${9+Math.random()*16}s;animation-delay:${Math.random()*14}s;opacity:${0.15+Math.random()*0.45};`;
   pContainer.appendChild(p);
 }
 
-/* ─── Smooth scroll ─── */
+/* ── Smooth scroll ── */
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', function(e) {
     const id = this.getAttribute('href').slice(1);
@@ -890,73 +1501,55 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-/* ─── Reveal on scroll ─── */
+/* ── Reveal on scroll ── */
 const revealEls = document.querySelectorAll('.doc-group, .doc-reveal, .reveal');
 revealEls.forEach(el => {
   if (!el.classList.contains('reveal')) {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
+    el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   }
 });
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
       setTimeout(() => {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)';
         entry.target.classList.add('visible');
       }, 60);
       observer.unobserve(entry.target);
     }
   });
 }, { threshold: 0.06 });
-revealEls.forEach((el, i) => {
-  el.style.transitionDelay = (i * 0.06) + 's';
-  observer.observe(el);
-});
+revealEls.forEach((el, i) => { el.style.transitionDelay = (i * 0.04) + 's'; observer.observe(el); });
 
-/* ─── Collapsible doc groups ─── */
-document.querySelectorAll('.doc-group-header').forEach(header => {
-  header.addEventListener('click', () => {
-    header.parentElement.classList.toggle('open');
-  });
-});
-
-/* ─── Animated stats ─── */
+/* ── Animated stats ── */
 function animCount(elId, target, duration) {
   const el = document.getElementById(elId);
+  if (!el) return;
   let start = 0;
   const step = target / (duration / 16);
-  const tick = () => {
-    start = Math.min(start + step, target);
-    el.textContent = Math.floor(start).toLocaleString();
-    if (start < target) requestAnimationFrame(tick);
-  };
+  const tick = () => { start = Math.min(start + step, target); el.textContent = Math.floor(start).toLocaleString(); if (start < target) requestAnimationFrame(tick); };
   tick();
 }
 const statsObs = new IntersectionObserver((entries) => {
-  if (entries[0].isIntersecting) {
-    animCount('stat1', 4200, 1400);
-    animCount('stat3', 20, 1600);
-    animCount('stat4', 12, 900);
-    statsObs.disconnect();
-  }
+  if (entries[0].isIntersecting) { animCount('stat1', 4200, 1400); animCount('stat3', 20, 1600); animCount('stat4', 12, 900); statsObs.disconnect(); }
 }, { threshold: 0.3 });
 statsObs.observe(document.querySelector('.stats-bar'));
 
-/* ─── Terminal typewriter ─── */
+/* ── Terminal typewriter ── */
 const lines = [
   { type: 'prompt', text: '> desynx.isattached()' },
   { type: 'out',    text: 'true  |  pid: 14892' },
   { type: 'prompt', text: '> desynx.setflag("FIntRobloxGuiBlurIntensity", 0, "Int")' },
-  { type: 'ok',     text: '✓  flag applied' },
+  { type: 'ok',     text: '✓  flag applied  [12ms]' },
   { type: 'prompt', text: '> desynx.setdesync(true)' },
   { type: 'ok',     text: '✓  desync enabled' },
   { type: 'prompt', text: '> desynx.listflags("FPS")' },
   { type: 'out',    text: '["DFIntTaskSchedulerTargetFps", ...]' },
   { type: 'prompt', text: '> desynx.setflag("DFIntTaskSchedulerTargetFps", 240, "Int")' },
   { type: 'ok',     text: '✓  fps unlocked → 240' },
+  { type: 'prompt', text: '> print(desynx.getdesync())' },
+  { type: 'out',    text: 'true' },
   { type: 'prompt', text: '_', cursor: true },
 ];
 const colors = { prompt: '#63b3ed', out: '#6b7d99', ok: '#68d391', err: '#fc8181' };
@@ -973,40 +1566,48 @@ function renderLines() {
 }
 
 function typeLine() {
-  if (lineIdx >= lines.length) { lineIdx = 0; rendered = []; setTimeout(typeLine, 1200); return; }
+  if (lineIdx >= lines.length) { lineIdx = 0; rendered = []; setTimeout(typeLine, 1800); return; }
   const line = lines[lineIdx];
   if (line.cursor) { rendered.push(line); renderLines(); lineIdx++; setTimeout(typeLine, 2400); return; }
   if (line.type !== 'prompt') { rendered.push(line); renderLines(); lineIdx++; setTimeout(typeLine, 300); return; }
   if (charIdx === 0) rendered.push({ ...line, text: '' });
   rendered[rendered.length - 1].text = line.text.slice(0, charIdx + 1);
-  renderLines();
-  charIdx++;
-  if (charIdx < line.text.length) setTimeout(typeLine, 28 + Math.random() * 30);
-  else { charIdx = 0; lineIdx++; setTimeout(typeLine, 380); }
+  renderLines(); charIdx++;
+  if (charIdx < line.text.length) setTimeout(typeLine, 26 + Math.random() * 28);
+  else { charIdx = 0; lineIdx++; setTimeout(typeLine, 350); }
 }
 typeLine();
 
-/* ─── Copy code ─── */
+/* ── Copy code ── */
 function copyCode() {
-  const raw = `-- Toggle blur off
-desynx.setflag("FIntRobloxGuiBlurIntensity", 0, "Int")
-desynx.notify("Blur disabled", 2, false, true)
-
--- Enable desync
-desynx.setdesync(true)
-local state = desynx.getdesync()
-print("Desync active: " .. tostring(state))
-
--- List all flags matching "Blur"
-local flags = desynx.listflags("Blur")
-for _, name in ipairs(flags) do
-  print(name)
-end`;
+  const raw = `-- Toggle blur off\ndesynx.setflag("FIntRobloxGuiBlurIntensity", 0, "Int")\ndesynx.notify("Blur disabled", 2, false, true)\n\n-- Enable desync\ndesynx.setdesync(true)\nlocal state = desynx.getdesync()\nprint("Desync active: " .. tostring(state))\n\n-- List all flags matching "Blur"\nlocal flags = desynx.listflags("Blur")\nfor _, name in ipairs(flags) do\n  print(name)\nend`;
   navigator.clipboard.writeText(raw).then(() => {
     const btn = document.getElementById('copyBtn');
-    btn.textContent = 'Copied!';
-    btn.classList.add('copied');
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+/* ── FAQ accordion ── */
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ── Doc search ── */
+function filterDocs(q) {
+  const term = q.toLowerCase().trim();
+  document.querySelectorAll('.doc-fn').forEach(fn => {
+    const text = (fn.dataset.search || '') + fn.innerText.toLowerCase();
+    fn.style.display = (!term || text.includes(term)) ? '' : 'none';
+  });
+  document.querySelectorAll('.doc-group').forEach(g => {
+    if (!term) { g.style.display = ''; return; }
+    const visible = [...g.querySelectorAll('.doc-fn')].some(fn => fn.style.display !== 'none');
+    g.style.display = visible ? '' : 'none';
+    if (visible) g.classList.add('open');
   });
 }
 </script>
